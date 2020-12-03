@@ -3,5 +3,4 @@
 .rts2_cache_umd
 .cache
 node_modules
-dist
 .DS_Store

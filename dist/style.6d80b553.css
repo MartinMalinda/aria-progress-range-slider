@@ -1,0 +1,107 @@
+.AriaProgressBar {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  padding: 10px 0;
+  z-index: 0;
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -ms-touch-action: none;
+      touch-action: none; }
+
+.AriaProgressBar:hover {
+  cursor: pointer; }
+
+.AriaProgressBar--disabled {
+  opacity: 0.5;
+  cursor: auto; }
+
+.AriaProgressBar-track {
+  height: 5px;
+  position: relative;
+  width: 100%;
+  z-index: 0; }
+
+.AriaProgressBar-progress,
+.AriaProgressBar-buffer,
+.AriaProgressBar-hover {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  transform-origin: left center; }
+
+.AriaProgressBar-progress {
+  z-index: 1; }
+
+.AriaProgressBar-buffer,
+.AriaProgressBar-hover,
+.AriaProgressBar-handle {
+  pointer-events: none; }
+
+.AriaProgressBar-handle {
+  z-index: 1;
+  position: absolute;
+  display: block;
+  height: 13px;
+  width: 13px;
+  left: 0;
+  margin-left: -6.5px;
+  top: 6px; }
+
+.AriaProgressBar-hoverTooltip,
+.AriaProgressBar-mainTooltip {
+  position: absolute;
+  bottom: 100%;
+  transform: translateX(-50%);
+  left: 50%; }
+
+.AriaProgressBar-mainTooltip {
+  z-index: 1; }
+
+.AriaProgressBar-hoverTooltip {
+  display: none; }
+  .AriaProgressBar--hover .AriaProgressBar-hoverTooltip {
+    display: block; }
+
+.AriaProgressBar:focus {
+  outline: 2px solid blue; }
+
+.AriaProgressBar-track {
+  background: #bbc; }
+
+.AriaProgressBar-progress {
+  background: #ff0000; }
+
+.AriaProgressBar-buffer {
+  background: rgba(255, 255, 255, 0.4); }
+
+.AriaProgressBar-hover {
+  background: rgba(255, 255, 255, 0.5); }
+
+.AriaProgressBar-handle {
+  background: #000;
+  border-radius: 50%; }
+
+.AriaProgressBar-hoverTooltip,
+.AriaProgressBar-mainTooltip {
+  border-radius: 2px;
+  padding: 3px 6px;
+  position: absolute;
+  font-size: 12px;
+  bottom: 100%;
+  transform: translateX(-50%);
+  left: 50%; }
+
+.AriaProgressBar-mainTooltip {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff; }
+
+.AriaProgressBar-hoverTooltip {
+  background: #ddd;
+  color: #333; }
+
+
+/*# sourceMappingURL=/style.6d80b553.css.map */
