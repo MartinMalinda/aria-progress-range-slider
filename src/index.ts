@@ -428,7 +428,7 @@ class ProgressBar {
 
   private updateValue(value:number) {
     this.handleElement.style.left = `${ value * 100 }%`;
-    this.progressElement.style.transform = `scaleX(${ value })`;
+    this.progressElement.style.width = `${ value * 100 }%`;
 
     if (this.value !== value || typeof value === 'undefined') {
       const previousRealValue = this.getRealValue();
@@ -448,7 +448,7 @@ class ProgressBar {
   }
 
   private setHoverScale(value:number) {
-    this.hoverElement.style.transform = `scaleX(${ value })`;
+    this.hoverElement.style.width = `${ value * 100 }%`;
   }
 
   private getRealValue() {
@@ -506,8 +506,8 @@ class ProgressBar {
       return;
     }
 
-    this.bufferElement.style.transform = `scaleX(${ value / this.range })`;
-  }
+    this.bufferElement.style.width = `${ value / this.range }%`;
+ }
 
   public disable() {
     if (this.isDestroyed) {

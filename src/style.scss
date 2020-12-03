@@ -12,6 +12,8 @@ $handle-top: ($total-height - $handle-height) / 2;
   position: relative;
   user-select:none;
   touch-action: none;
+  // overflow-x: hidden;
+  // overflow-y: visible;
 }
 
 .AriaProgressBar:hover {
@@ -39,7 +41,6 @@ $handle-top: ($total-height - $handle-height) / 2;
   top: 0;
   width: 100%;
   transform-origin: left center;
-  transform: scaleX(0);
 }
 
 .AriaProgressBar-progress {
