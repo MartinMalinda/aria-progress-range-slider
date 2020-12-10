@@ -15,7 +15,7 @@ import { getElementLeft } from './helpers';
 type TSelectorOrElement = HTMLElement | Element | string;
 
 interface UIEvent {
-  touches?: { pageX: number; }[];
+  touches?: Touch[];
   pageX?: number
   preventDefault():any
 }
@@ -117,6 +117,8 @@ class ProgressBar {
   private isMouseOver:boolean = false;
   private isDestroyed:boolean = false;
 
+  private previousTouch: Touch = null;
+
   private elementLeft:number;
 
   constructor(selectorOrElement:TSelectorOrElement, options:IProgressBarOptionsPartial) {
@@ -190,7 +192,7 @@ class ProgressBar {
 
     // Dragging
     // Touch events
-    this.element.addEventListener('touchstart', this.handleDragStart);
+    this.element.addEventListener('touchstart', this.handleTouchStart);
 
     window.addEventListener('touchmove', this.handleTouchMove, {
       capture: false,
@@ -257,6 +259,9 @@ class ProgressBar {
   }
 
   private handleDragEnd = () => {
+    this.firstTouch = null;
+    this.hasTouchStarted = false;
+
     if (this.isDragging) {
       if (this.options.onDragEnd) {
         this.options.onDragEnd(this.realValue, this.options);
@@ -290,12 +295,44 @@ class ProgressBar {
     }
   }
 
+  hasTouchStarted = false;
+  firstTouch = null;
+  private handleTouchStart = (e:TouchEvent) => {
+    this.hasTouchStarted = true;
+    this.firstTouch = e.touches[0];
+  }
+
   private handleTouchMove = (e:UIEvent) => {
-    if (!this.isDragging || this.options.disabled) {
+    if (!this.hasTouchStarted || this.options.disabled) {
       return;
     }
 
-    e.preventDefault();
+    const getDeltaX = (touchA : Touch, touchB: Touch) => {
+      return Math.abs(touchA.clientX - touchB.clientX);
+    };
+    const getDeltaY = (touchA : Touch, touchB: Touch) => {
+      return Math.abs(touchA.clientY - touchB.clientY);
+    };
+
+    if (getDeltaX(e.touches[0], this.firstTouch) > 100 && !this.isDragging) {
+      this.handleDragStart(e);
+    }
+
+    if (!this.isDragging) {
+      return;
+    }
+
+    if (this.previousTouch) {
+      const deltaX = getDeltaX(e.touches[0], this.previousTouch);
+      const deltaY = getDeltaY(e.touches[0], this.previousTouch);
+      if (deltaX > deltaY) {
+        e.preventDefault();
+      } else {
+        return;
+      }
+    }
+    
+    this.previousTouch = e.touches[0] as Touch;
 
     const value = this.getValueFromEvent(e);
 
@@ -459,8 +496,7 @@ class ProgressBar {
 
   private unbind() {
     // Touch events
-    this.element.removeEventListener('touchstart', this.handleDragStart);
-
+    this.element.removeEventListener('touchstart', this.handleTouchStart);
     window.removeEventListener('touchmove', this.handleTouchMove);
     window.removeEventListener('touchend', this.handleDragEnd);
 
