@@ -55,6 +55,7 @@ declare class ProgressBar {
     private isDragging;
     private isMouseOver;
     private isDestroyed;
+    private previousTouch;
     private elementLeft;
     constructor(selectorOrElement: TSelectorOrElement, options: IProgressBarOptionsPartial);
     private createElement;
@@ -65,6 +66,9 @@ declare class ProgressBar {
     private handleDragStart;
     private handleDragEnd;
     private handleMouseMove;
+    hasTouchStarted: boolean;
+    firstTouch: any;
+    private handleTouchStart;
     private handleTouchMove;
     private handleDragMove;
     private handleKeyDown;
