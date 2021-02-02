@@ -41,27 +41,6 @@ interface IProgressBarOptions {
   step: number
 }
 
-interface IProgressBarOptionsPartial {
-  ariaLabel?: string
-  ariaLabeledBy?: string,
-  arrowMoveStep?: number
-  className?: string
-  disabled?: boolean
-  float?: boolean
-  getTooltipText?(value:number, options?:IProgressBarOptions):string
-  getValueText?(value:number, options?:IProgressBarOptions):string
-  initialValue?: number
-  max?: number
-  min?: number
-  onChange?(value:number, options?:IProgressBarOptions):any
-  onDragEnd?(value:number, options?:IProgressBarOptions):any
-  onDragMove?(value:number, options?:IProgressBarOptions):any
-  onDragStart?(value:number, options?:IProgressBarOptions):any
-  pageMoveStep?: number,
-  snap?: boolean
-  step?: number
-}
-
 const DEFAULT_OPTIONS:IProgressBarOptions = {
   ariaLabel: 'Seek slider',
   arrowMoveStep: 1,
@@ -121,7 +100,7 @@ class ProgressBar {
 
   private elementLeft:number;
 
-  constructor(selectorOrElement:TSelectorOrElement, options:IProgressBarOptionsPartial) {
+  constructor(selectorOrElement:TSelectorOrElement, options:Partial<IProgressBarOptions>) {
     if (typeof selectorOrElement === 'string') {
       this.element = document.querySelector(selectorOrElement);
     } else {
@@ -276,7 +255,7 @@ class ProgressBar {
     this.element.classList.remove(`${ this.options.className }--dragging`);
 
     // TODO if need this for  IE only
-    // this.updateHoverTooltip(this.value);
+    this.updateHoverTooltip(this.value);
   }
 
   private handleMouseMove = (e:UIEvent) => {
@@ -542,7 +521,7 @@ class ProgressBar {
       return;
     }
 
-    this.bufferElement.style.width = `${ value / this.range }%`;
+    this.bufferElement.style.width = `${ value / this.range * 100 }%`;
  }
 
   public disable() {

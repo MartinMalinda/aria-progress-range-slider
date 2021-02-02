@@ -19,26 +19,6 @@ interface IProgressBarOptions {
     snap: boolean;
     step: number;
 }
-interface IProgressBarOptionsPartial {
-    ariaLabel?: string;
-    ariaLabeledBy?: string;
-    arrowMoveStep?: number;
-    className?: string;
-    disabled?: boolean;
-    float?: boolean;
-    getTooltipText?(value: number, options?: IProgressBarOptions): string;
-    getValueText?(value: number, options?: IProgressBarOptions): string;
-    initialValue?: number;
-    max?: number;
-    min?: number;
-    onChange?(value: number, options?: IProgressBarOptions): any;
-    onDragEnd?(value: number, options?: IProgressBarOptions): any;
-    onDragMove?(value: number, options?: IProgressBarOptions): any;
-    onDragStart?(value: number, options?: IProgressBarOptions): any;
-    pageMoveStep?: number;
-    snap?: boolean;
-    step?: number;
-}
 declare class ProgressBar {
     private element;
     private handleElement;
@@ -57,7 +37,7 @@ declare class ProgressBar {
     private isDestroyed;
     private previousTouch;
     private elementLeft;
-    constructor(selectorOrElement: TSelectorOrElement, options: IProgressBarOptionsPartial);
+    constructor(selectorOrElement: TSelectorOrElement, options: Partial<IProgressBarOptions>);
     private createElement;
     private createElements;
     private getClassName;
