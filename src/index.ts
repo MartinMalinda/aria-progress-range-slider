@@ -296,7 +296,9 @@ class ProgressBar {
       return Math.abs(touchA.clientY - touchB.clientY);
     };
 
-    if (getDeltaX(e.touches[0], this.firstTouch) > 100 && !this.isDragging) {
+    const delta = getDeltaX(e.touches[0], this.firstTouch);
+    console.log({ delta });
+    if (delta > 20 && !this.isDragging) {
       this.handleDragStart(e);
     }
 
