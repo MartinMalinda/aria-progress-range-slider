@@ -252,7 +252,9 @@ class ProgressBar {
     }
 
     this.isDragging = false;
-    this.element.classList.remove(`${ this.options.className }--dragging`);
+    setTimeout(() => {
+      this.element.classList.remove(`${ this.options.className }--dragging`);
+    }, 100);
 
     // TODO if need this for  IE only
     this.updateHoverTooltip(this.value);
