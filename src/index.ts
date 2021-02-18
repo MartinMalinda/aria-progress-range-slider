@@ -282,6 +282,9 @@ class ProgressBar {
   }
 
   private handleTouchMove = (e:UIEvent) => {
+    const value = this.getValueFromEvent(e);
+    this.updateHoverTooltip(value);
+    
     if (!this.hasTouchStarted || this.options.disabled) {
       return;
     }
@@ -313,7 +316,7 @@ class ProgressBar {
     
     this.previousTouch = e.touches[0] as Touch;
 
-    const value = this.getValueFromEvent(e);
+    
 
     this.handleDragMove(value);
   }
